@@ -28,7 +28,8 @@ const char *mr_init_devices[] =
  "/sys/class/misc/uinput",
  "/sys/devices/i2c-3/3-0020/input/input3", //touchscreen stuff
  "/sys/devices/i2c-3/3-0020/input/input3/event3", //touchscreen
-
+ "/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-pwrkey/input*",
+ 
  // for adb
  "/sys/class/tty/ptmx",
  "/sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/mmcblk0p16", //system
