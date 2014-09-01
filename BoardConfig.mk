@@ -53,7 +53,7 @@ COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DQCOM_BSP
 BOARD_EGL_CFG := device/samsung/jflte/configs/egl.cfg
 
 # TWRP
-TARGET_RECOVERY_FSTAB := device/samsung/jflte/rootdir/etc/fstab.qcom
+TARGET_RECOVERY_FSTAB := device/samsung/jflte/multirom/twrp.fstab
 DEVICE_RESOLUTION := 1080x1920
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 RECOVERY_SDCARD_ON_DATA := true
@@ -145,3 +145,14 @@ BOARD_HAS_EXTENDED_SWITCH := true
 # Use my hacky workaround temporarily
 # until the real fix is implemented
 SEPARATED_VOIP_SHORTCUT := true
+
+# MultiROM config. MultiROM also uses parts of TWRP config
+MR_INPUT_TYPE := type_b
+MR_INIT_DEVICES := device/samsung/jflte/multirom/mr_init_devices.c
+MR_DPI := xhdpi
+MR_DPI_FONT := 340
+MR_FSTAB := device/samsung/jflte/multirom/twrp.fstab
+MR_KEXEC_MEM_MIN := 0x85000000
+MR_USE_MROM_FSTAB := true
+MR_DEVICE_HOOKS := device/samsung/jflte/multirom/mr_hooks.c
+MR_DEVICE_HOOKS_VER := 1
