@@ -23,6 +23,10 @@ const char *mr_init_devices[] =
 	"/sys/devices/platform/msm_sdcc.1*",
 	"/sys/module/mmcblk",
 	"/sys/module/mmc_core",
+	
+	// MicroSD card
+	"/sys/block/mmcblk1",
+	"/sys/devices/platform/msm_sdcc.2*",
 
 	// Input stuff
         "/sys/class/misc/uinput",
