@@ -1,9 +1,6 @@
 #!/bin/bash
 
-set -e
-
-export DEVICE=jflte
-export VENDOR=samsung
+#set -e
 
 if [ $# -eq 0 ]; then
   SRC=adb
@@ -22,10 +19,10 @@ else
 fi
 
 BASE=../../../vendor/$VENDOR/$DEVICE/proprietary
-
 rm -rf $BASE/*
 
-for FILE in `egrep -v '(^#|^$)' ../$DEVICE/proprietary-files.txt`; do
+echo "**Extract device props"
+for FILE in `egrep -v '(^#|^$)' ../$DEVICE/device-proprietary-files.txt`; do
   echo "Extracting /system/$FILE ..."
   OLDIFS=$IFS IFS=":" PARSING_ARRAY=($FILE) IFS=$OLDIFS
   FILE=${PARSING_ARRAY[0]}
@@ -34,7 +31,7 @@ for FILE in `egrep -v '(^#|^$)' ../$DEVICE/proprietary-files.txt`; do
   then
     DEST=$FILE
   fi
-  DIR=`dirname $FILE`
+  DIR=`dirname $DEST`
   if [ ! -d $BASE/$DIR ]; then
     mkdir -p $BASE/$DIR
   fi
@@ -46,13 +43,80 @@ for FILE in `egrep -v '(^#|^$)' ../$DEVICE/proprietary-files.txt`; do
         adb pull /system/$DEST $BASE/$DEST
     fi
   else
-    cp $SRC/system/$FILE $BASE/$DEST
-    # if file dot not exist try destination
-    if [ "$?" != "0" ]
-        then
+    if [ -f $SRC/system/$DEST ]; then
+        echo ":: $DEST"
         cp $SRC/system/$DEST $BASE/$DEST
+    else
+        echo ":: $FILE"
+        cp $SRC/system/$FILE $BASE/$DEST
     fi
   fi
 done
 
-./setup-makefiles.sh
+echo "**Extract jf-common props"
+for FILE in `egrep -v '(^#|^$)' ../jf-common/proprietary-files.txt`; do
+  echo "Extracting /system/$FILE ..."
+  OLDIFS=$IFS IFS=":" PARSING_ARRAY=($FILE) IFS=$OLDIFS
+  FILE=${PARSING_ARRAY[0]}
+  DEST=${PARSING_ARRAY[1]}
+  if [ -z $DEST ]
+  then
+    DEST=$FILE
+  fi
+  DIR=`dirname $DEST`
+  if [ ! -d $BASE/$DIR ]; then
+    mkdir -p $BASE/$DIR
+  fi
+  if [ "$SRC" = "adb" ]; then
+    adb pull /system/$FILE $BASE/$DEST
+  # if file dot not exist try destination
+    if [ "$?" != "0" ]
+        then
+        adb pull /system/$DEST $BASE/$DEST
+    fi
+  else
+    if [ -f $SRC/system/$DEST ]; then
+        echo ":: $DEST"
+        cp $SRC/system/$DEST $BASE/$DEST
+    else
+        echo ":: $FILE"
+        cp $SRC/system/$FILE $BASE/$DEST
+    fi
+  fi
+done
+
+echo "**Extract jf-common common props"
+BASE=../../../vendor/$VENDOR/jf-common/proprietary
+rm -rf $BASE/*
+for FILE in `egrep -v '(^#|^$)' ../jf-common/common-proprietary-files.txt`; do
+  echo "Extracting /system/$FILE ..."
+  OLDIFS=$IFS IFS=":" PARSING_ARRAY=($FILE) IFS=$OLDIFS
+  FILE=${PARSING_ARRAY[0]}
+  DEST=${PARSING_ARRAY[1]}
+  if [ -z $DEST ]
+  then
+    DEST=$FILE
+  fi
+  DIR=`dirname $DEST`
+  if [ ! -d $BASE/$DIR ]; then
+    mkdir -p $BASE/$DIR
+  fi
+  if [ "$SRC" = "adb" ]; then
+    adb pull /system/$FILE $BASE/$DEST
+  # if file dot not exist try destination
+    if [ "$?" != "0" ]
+        then
+        adb pull /system/$DEST $BASE/$DEST
+    fi
+  else
+    if [ -f $SRC/system/$DEST ]; then
+        echo ":: $DEST"
+        cp $SRC/system/$DEST $BASE/$DEST
+    else
+        echo ":: $FILE"
+        cp $SRC/system/$FILE $BASE/$DEST
+    fi
+  fi
+done
+
+./../jf-common/setup-makefiles.sh

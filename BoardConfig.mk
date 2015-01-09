@@ -20,37 +20,167 @@
 # definition file).
 #
 
-# inherit from common msm8960
--include device/samsung/msm8960-common/BoardConfigCommon.mk
+# inherit from qcom-common
+-include device/samsung/qcom-common/BoardConfigCommon.mk
 
-TARGET_SPECIFIC_HEADER_PATH := device/samsung/jflte/include
+# Platform
+TARGET_BOARD_PLATFORM := msm8960
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno320
 
-# Kernel
-TARGET_KERNEL_SOURCE         := kernel/samsung/jf
-BOARD_KERNEL_CMDLINE         := androidboot.hardware=qcom user_debug=31 zcache msm_rtb.filter=0x3F ehci-hcd.park=3 maxcpus=2 androidboot.selinux=permissive
-BOARD_KERNEL_BASE            := 0x80200000
-BOARD_MKBOOTIMG_ARGS         := --ramdisk_offset 0x02000000
-BOARD_KERNEL_PAGESIZE        := 2048
-TARGET_KERNEL_VARIANT_CONFIG := custom_jf_defconfig
-TARGET_KERNEL_SELINUX_CONFIG := jfselinux_defconfig
+# Architecture
+TARGET_CPU_VARIANT := krait
 
+# Assert
+TARGET_OTA_ASSERT_DEVICE := jflte,jfltexx,i9505,GT-I9505,jgedlte,i9505g,GT-I9505G,jfltespr,jflterefreshspr,jfltetmo,jfltecri,jfltecsp,jfltecan,jflteusc,jfltezm
+
+# Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8960
 
-# WiFi module
-BOARD_HAVE_SAMSUNG_WIFI := true
-WIFI_BAND := 802_11_ABG
-WIFI_DRIVER_MODULE_AP_ARG := "firmware_path=/system/etc/wifi/bcmdhd_apsta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
-WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/etc/wifi/bcmdhd_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
-WIFI_DRIVER_MODULE_NAME := "dhd"
-WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/dhd.ko"
+# Kernel
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 zcache msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.selinux=permissive
+BOARD_KERNEL_BASE := 0x80200000
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
+BOARD_KERNEL_PAGESIZE := 2048
+TARGET_KERNEL_CONFIG := custom_jf_defconfig
+TARGET_KERNEL_SOURCE := kernel/samsung/jf
+# TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.9.3
 
-# QCOM
-BOARD_USES_QCOM_HARDWARE := true
+# ANT+
+#BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+
+# Audio
+BOARD_HAVE_AUDIENCE_ES325_2MIC := true
+BOARD_HAVE_DOCK_USBAUDIO := true
+BOARD_HAVE_SAMSUNG_AUDIO := true
+BOARD_HAVE_SAMSUNG_CSDCLIENT := true
+BOARD_USES_ALSA_AUDIO := true
+BOARD_USES_FLUENCE_INCALL := false
+BOARD_USES_FLUENCE_FOR_VOIP := false
+BOARD_USES_LEGACY_ALSA_AUDIO := true
+BOARD_USES_SEPERATED_AUDIO_INPUT := true
+BOARD_USES_SEPERATED_HEADSET_MIC := true
+BOARD_USES_SEPERATED_VOICE_SPEAKER := true
+BOARD_USES_SEPERATED_VOIP := true
+TARGET_USES_QCOM_COMPRESSED_AUDIO := true
+QCOM_ADSP_SSR_ENABLED := false
+QCOM_ANC_HEADSET_ENABLED := false
+TARGET_QCOM_AUDIO_VARIANT := caf
+
+# Bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/jf-common/bluetooth
+BOARD_BLUEDROID_VENDOR_CONF := device/samsung/jf-common/bluetooth/vnd_jf.txt
+BOARD_BLUETOOTH_USES_HCIATTACH_PROPERTY := false
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_BCM := true
+
+# Camera
+COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_HARDWARE
+TARGET_PROVIDES_CAMERA_HAL := true
+USE_DEVICE_SPECIFIC_CAMERA := true
+
+# Charger
+BOARD_BATTERY_DEVICE_NAME := "battery"
+BOARD_CHARGING_CMDLINE_NAME := "androidboot.bootchg"
+BOARD_CHARGING_CMDLINE_VALUE := "true"
+
+# Display
+BOARD_EGL_CFG := device/samsung/jf-common/configs/egl.cfg
+BOARD_USES_LEGACY_MMAP := true
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+TARGET_DISPLAY_USE_RETIRE_FENCE := true
+TARGET_NO_INITLOGO := true
+TARGET_QCOM_DISPLAY_VARIANT := caf
+
+# Fonts
+EXTENDED_FONT_FOOTPRINT := true
+
+# GPS
+TARGET_NO_RPC := true
+
+# Includes
+TARGET_SPECIFIC_HEADER_PATH += device/samsung/jf-common/include
+
+# Lights
+TARGET_PROVIDES_LIBLIGHT := true
+
+# Logging
+TARGET_USES_LOGD := false
+
+# Media
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
+TARGET_QCOM_MEDIA_VARIANT := caf
+
+# NFC
+BOARD_NFC_CHIPSET := pn544
+
+# Partitions
+TARGET_USERIMAGES_USE_EXT4 := true
+#TARGET_USERIMAGES_USE_F2FS := true
+BOARD_BOOTIMAGE_PARTITION_SIZE := 0x00A00000
+#BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00A00000
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1572864000
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 28651290624
+BOARD_FLASH_BLOCK_SIZE := 131072
+
+# Power
+TARGET_POWERHAL_VARIANT := qcom
+
+# Qualcomm support
+COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
 TARGET_USES_QCOM_BSP := true
-COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DQCOM_BSP
 
-# Adreno configuration
-BOARD_EGL_CFG := device/samsung/jflte/configs/egl.cfg
+# Recovery
+BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
+BOARD_USES_MMCUTILS := true
+BOARD_HAS_LARGE_FILESYSTEM := true
+BOARD_HAS_NO_MISC_PARTITION := true
+BOARD_HAS_NO_SELECT_BUTTON := true
+BOARD_RECOVERY_SWIPE := true
+TARGET_RECOVERY_FSTAB := device/samsung/jf-common/rootdir/etc/fstab.qcom
+
+# Releasetools
+TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/jf-common/releasetools
+
+# RIL
+#BOARD_RIL_CLASS := ../../../device/samsung/jf-common/ril
+
+# SELinux
+include device/qcom/sepolicy/sepolicy.mk
+BOARD_SEPOLICY_DIRS += device/samsung/jf-common/sepolicy
+
+BOARD_SEPOLICY_UNION += \
+    bluetooth.te \
+    device.te \
+    file_contexts \
+    file.te \
+    gamma_dev.te \
+    genfs_contexts \
+    healthd.te \
+    hostapd.te \
+    insthk.te \
+    kernel.te \
+    keypad_dev.te \
+    macloader.te \
+    mdm_helper.te \
+    mediaserver.te \
+    mm-pp-daemon.te \
+    mm-qcamerad.te \
+    mpdecision.te \
+    panel_dev.te \
+    property_contexts \
+    property.te \
+    rild.te \
+    system_app.te \
+    system_server.te \
+    tee.te \
+    thermal-engine.te \
+    ueventd.te \
+    vibe_dev.te \
+    vold.te \
+    wpa.te
+
+# Time services
+BOARD_USES_QC_TIME_SERVICES := true
 
 # TWRP
 TARGET_RECOVERY_FSTAB := device/samsung/jflte/multirom/twrp.fstab
@@ -76,75 +206,28 @@ TW_BRIGHTNESS_PATH := /sys/devices/platform/msm_fb.526593/leds/lcd-backlight/bri
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun0/file
 #TWRP_EVENT_LOGGING := true
 
-TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_BOOTIMAGE_PARTITION_SIZE := 0x00A00000
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00A7DEA0
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1572864000
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 28651290624
-BOARD_FLASH_BLOCK_SIZE := 131072
-
 # Vendor Init
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_jflte
-TARGET_LIBINIT_DEFINES_FILE := device/samsung/jflte/init/init_jflte.c
+TARGET_LIBINIT_DEFINES_FILE := device/samsung/jf-common/init/init_jflte.c
 
-# bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/jflte/bluetooth
-BOARD_BLUEDROID_VENDOR_CONF := device/samsung/jflte/bluetooth/vnd_jf.txt
-BOARD_BLUETOOTH_USES_HCIATTACH_PROPERTY := false
+# Vold
+BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
+BOARD_VOLD_MAX_PARTITIONS := 28
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 
-# Needed for blobs
-COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
-
-# NFC
-BOARD_NFC_HAL_SUFFIX := msm8960
-
-# Disable initlogo, Samsungs framebuffer is weird
-TARGET_NO_INITLOGO := true
-
-# Use seperate speakerphone device
-BOARD_USES_SEPERATED_VOICE_SPEAKER := true
-
-# Use USB Dock Audio
-BOARD_HAVE_DOCK_USBAUDIO := true
-
-# Use the ES325 dual mic feature
-BOARD_HAVE_AUDIENCE_ES325_2MIC := true
-
-# Samsung's nonstandard csd-client
-BOARD_HAVE_SAMSUNG_CSDCLIENT := true
-
-# Use seperate devices for VOIP
-BOARD_USES_SEPERATED_VOIP := true
-
-# Use seperate devices for 3-pole headset
-BOARD_USES_SEPERATED_HEADSET_MIC := true
-
-# Time services
-BOARD_USES_QC_TIME_SERVICES := true
-
-# Camera
-TARGET_NEED_CAMERA_ZSL := true
-TARGET_NEED_SAMSUNG_MAGIC_ZSL_1508 := true
-TARGET_ADD_ISO_MODE_1600 := true
-TARGET_ADD_ISO_MODE_HJR := true
-TARGET_DISABLE_ZSL_FOR_FFC := true
-
-# Assert
-TARGET_OTA_ASSERT_DEVICE := jflte,jfltexx,i9505,GT-I9505,jgedlte,i9505g,GT-I9505G,jfltevzw,jfltespr,jflterefreshspr,jfltetmo,jfltecri,jfltecsp,jflteatt,jfltecan,jflteusc,jfltezm
-
-# Kernel
-TARGET_KERNEL_CONFIG         := jf_eur_defconfig
-
-# Releasetools
-TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/jflte/releasetools
-
-# Smart Cover
-BOARD_HAS_EXTENDED_SWITCH := true
-
-# Use my hacky workaround temporarily
-# until the real fix is implemented
-SEPARATED_VOIP_SHORTCUT := true
+# Wifi module
+BOARD_WLAN_DEVICE := bcmdhd
+BOARD_HAVE_SAMSUNG_WIFI := true
+BOARD_HOSTAPD_DRIVER := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_${BOARD_WLAN_DEVICE}
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_${BOARD_WLAN_DEVICE}
+WPA_SUPPLICANT_VERSION := VER_0_8_X
+WIFI_BAND := 802_11_ABG
+WIFI_DRIVER_FW_PATH_AP := "/system/etc/wifi/bcmdhd_apsta.bin"
+WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/dhd/parameters/firmware_path"
+WIFI_DRIVER_FW_PATH_STA := "/system/etc/wifi/bcmdhd_sta.bin"
 
 # MultiROM config. MultiROM also uses parts of TWRP config
 MR_INPUT_TYPE := type_b

@@ -42,7 +42,6 @@ void vendor_load_properties()
     char platform[PROP_VALUE_MAX];
     char bootloader[PROP_VALUE_MAX];
     char device[PROP_VALUE_MAX];
-    char devicename[PROP_VALUE_MAX];
     int rc;
 
     rc = property_get("ro.board.platform", platform);
@@ -116,11 +115,12 @@ void vendor_load_properties()
         property_set("ro.product.device", "jfltevzw");
         property_set("ro.cdma.home.operator.alpha", "Verizon");
         property_set("ro.cdma.home.operator.numeric", "311480");
+        property_set("ro.telephony.get_imsi_from_sim", "true");
     } else if (strstr(bootloader, "I9505G")) {
         /* jgedlte */
         gsm_properties();
-        property_set("ro.build.fingerprint", "samsung/jgedlteue/jgedlte:4.4.2/KOT49H.S001/131204:user/release-keys");
-        property_set("ro.build.description", "jgedlteue-user 4.4.2 KOT49H.S001 131204 release-keys");
+        property_set("ro.build.fingerprint", "samsung/jgedlteue/jgedlte:4.4.3/KTU84L.S003/140503:user/release-keys");
+        property_set("ro.build.description", "jgedlteue-user 4.4.3 KTU84L.S003 140503 release-keys");
         property_set("ro.product.model", "GT-I9505G");
         property_set("ro.product.device", "jgedlte");
     } else if (strstr(bootloader, "I9505")) {
@@ -144,7 +144,15 @@ void vendor_load_properties()
         property_set("ro.build.description", "jfltezm-user 4.2.2 JDQ39 I9508ZMUAMG1 release-keys");
         property_set("ro.product.model", "GT-I9508");
         property_set("ro.product.device", "jfltezm");
+    } else if (strstr(bootloader, "I9295")) {
+        /* jactivelte */
+        gsm_properties();
+        property_set("ro.build.fingerprint", "samsung/jactivelte/jactivelte:4.4.2/KTU84Q/I9295XXUCNE5:user/release-keys");
+        property_set("ro.build.description", "jactivelte-user 4.4.4 KTU84Q I9295XXUCNE5 release-keys");
+        property_set("ro.product.model", "GT-I9295");
+        property_set("ro.product.device", "jactivelte");
     }
+
     property_get("ro.product.device", device);
     ERROR("Found bootloader id %s setting build properties for %s device\n", bootloader, device);
 
@@ -158,9 +166,8 @@ void gsm_properties()
 
 void cdma_properties(char cdma_sub[])
 {
-    property_set("ro.telephony.default_cdma_sub", cdma_sub); // 0: RUIM/SIM  1: NV
+    property_set("ro.telephony.default_cdma_sub", cdma_sub);
     property_set("ro.gps.set_privacy", "1");
-    property_set("ro.telephony.ril.v3", "newDriverCallU");
     property_set("telephony.lteOnCdmaDevice", "1");
     property_set("ro.telephony.default_network", "10");
 }

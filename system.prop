@@ -1,5 +1,0 @@
-# system.prop for jflte
-#
-
-rild.libargs=-d /dev/smd0
-persist.radio.mode_pref_nv10=1
