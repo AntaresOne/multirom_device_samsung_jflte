@@ -133,13 +133,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     lights.msm8960
 
-# Loki
-PRODUCT_PACKAGES += \
-    loki_tool \
-    loki.sh \
-    loki_bootloaders \
-    recovery-transform.sh
-
 # Media
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
@@ -203,11 +196,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermald.conf:system/etc/thermald.conf \
     $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf \
     $(LOCAL_PATH)/configs/thermal-engine-8064ab.conf:system/etc/thermal-engine-8064ab.conf
-
-# OmniTorch
-PRODUCT_PACKAGES += \
-    OmniTorch
-
+    
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory

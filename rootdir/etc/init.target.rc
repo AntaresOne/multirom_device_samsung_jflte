@@ -49,9 +49,6 @@ on boot
     write /sys/devices/i2c-3/3-0024/cyttsp_update_fw 1
     write /sys/devices/i2c-3/3-005b/update_fw 1
     start qcamerasvr
-    
-    # enable pulsing led on boot
-    write /sys/class/sec/led/led_pattern 6
 
 on post-fs-data
     mkdir /data/tombstones 0771 system system
@@ -300,11 +297,6 @@ service mdm_helper /system/bin/mdm_helper
     onrestart setprop ro.service.mdm_helper_restarted "true"
     disabled
 
-service qrngd /system/bin/qrngd -f
-   class main
-   user root
-   group root
-
 service qseecomd /system/bin/qseecomd
     class late_start
     user system
@@ -336,8 +328,6 @@ service bugreport /system/bin/dumpstate -d -p -B \
 # SISO-ANDR-PERF :: START Changing scheduler to row after boot complete
 on property:sys.boot_completed=1
     write /sys/block/mmcblk0/queue/scheduler row
-    # disable pulsing led on boot complete
-    write /sys/class/sec/led/led_pattern 0
 
 # insthk
 service insthk /system/bin/insthk

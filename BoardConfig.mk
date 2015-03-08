@@ -37,13 +37,12 @@ TARGET_OTA_ASSERT_DEVICE := jflte,jfltexx,i9505,GT-I9505,jgedlte,i9505g,GT-I9505
 TARGET_BOOTLOADER_BOARD_NAME := MSM8960
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 zcache msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 zcache msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x80200000
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 BOARD_KERNEL_PAGESIZE := 2048
 TARGET_KERNEL_CONFIG := custom_jf_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/jf
-# TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.9.3
 
 # ANT+
 #BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
@@ -115,7 +114,7 @@ BOARD_NFC_CHIPSET := pn544
 
 # Partitions
 TARGET_USERIMAGES_USE_EXT4 := true
-#TARGET_USERIMAGES_USE_F2FS := true
+TARGET_USERIMAGES_USE_F2FS := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x00A00000
 #BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00A00000
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1572864000
@@ -125,10 +124,6 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 # Power
 TARGET_POWERHAL_VARIANT := qcom
 
-# Qualcomm support
-COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
-TARGET_USES_QCOM_BSP := true
-
 # Recovery
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 BOARD_USES_MMCUTILS := true
@@ -137,12 +132,6 @@ BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_RECOVERY_SWIPE := true
 TARGET_RECOVERY_FSTAB := device/samsung/jf-common/rootdir/etc/fstab.qcom
-
-# Releasetools
-TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/jf-common/releasetools
-
-# RIL
-#BOARD_RIL_CLASS := ../../../device/samsung/jf-common/ril
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
@@ -205,11 +194,6 @@ TW_CRYPTO_KEY_LOC := "footer"
 TW_BRIGHTNESS_PATH := /sys/devices/platform/msm_fb.526593/leds/lcd-backlight/brightness
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun0/file
 #TWRP_EVENT_LOGGING := true
-
-# Vendor Init
-TARGET_UNIFIED_DEVICE := true
-TARGET_INIT_VENDOR_LIB := libinit_jflte
-TARGET_LIBINIT_DEFINES_FILE := device/samsung/jf-common/init/init_jflte.c
 
 # Vold
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
