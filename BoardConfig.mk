@@ -24,7 +24,7 @@
 -include device/samsung/qcom-common/BoardConfigCommon.mk
 
 # inherit from the proprietary version
--include vendor/samsung/jflte/BoardConfigVendor.mk
+-include vendor/samsung/jf-common/BoardConfigVendor.mk
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := jflte,jfltexx,i9505,GT-I9505,jgedlte,i9505g,GT-I9505G,jfltespr,jflterefreshspr,jfltetmo,jfltecri,jfltecsp,jfltecan,jflteusc,jfltezm
