@@ -59,7 +59,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
 # Device uses high-density artwork where available
-PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
+PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 # Boot animation
@@ -192,7 +192,7 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.rc \
     init.target.rc \
     ueventd.qcom.rc
-
+    
 # Thermal
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf \
@@ -231,7 +231,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # media
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.media.use-awesome=true \
     qcom.hw.aac.encoder=true
 
 # radio
@@ -254,7 +253,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # media
 PRODUCT_PROPERTY_OVERRIDES += \
-    lpa.decode=true \
     mm.enable.smoothstreaming=true
 
 # nitz
@@ -280,6 +278,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.cwm.repeatable_keys=114,115
 
 # ril
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/ril/props/cdma/cdma.txt:system/blobs/cdma/cdma.txt \
+    $(LOCAL_PATH)/ril/props/gsm/gsm.txt:system/blobs/gsm/gsm.txt \
+    $(LOCAL_PATH)/ril/props/usc/usc.txt:system/blobs/usc/usc.txt \
+    $(LOCAL_PATH)/ril/props/vzw/vzw.txt:system/blobs/vzw/vzw.txt
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=jflteRIL
 

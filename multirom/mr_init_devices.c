@@ -30,7 +30,7 @@ const char *mr_init_devices[] =
 	"/sys/devices/platform/msm_sdcc.2*",
 
 	// Input stuff
-        "/sys/class/misc/uinput",
+    "/sys/class/misc/uinput",
 	"/sys/devices/i2c-3/3-0020/input/input3*", // Touchscreen
 	"/sys/devices/platform/gpio-keys/input*", // Volume keys
 	"/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-pwrkey/input*", // Power key

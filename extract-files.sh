@@ -1,10 +1,5 @@
 #!/bin/bash
 
-#set -e
-
-export DEVICE=jflte
-export VENDOR=samsung
-
 function extract() {
     for FILE in `egrep -v '(^#|^$)' $1`; do
         OLDIFS=$IFS IFS=":" PARSING_ARRAY=($FILE) IFS=$OLDIFS
@@ -58,6 +53,6 @@ DEVBASE=../../../vendor/$VENDOR/$DEVICE/proprietary
 rm -rf $DEVBASE/*
 
 extract ../../$VENDOR/jf-common/common-proprietary-files.txt $BASE
-extract ../../$VENDOR/$DEVICE/proprietary-files.txt $DEVBASE
+extract ../../$VENDOR/$DEVICE/device-proprietary-files.txt $DEVBASE
 
-./setup-makefiles.sh
+../jf-common/setup-makefiles.sh

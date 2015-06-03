@@ -14,15 +14,6 @@ lib/libacdbloader.so
 lib/libaudcal.so
 lib/libcsd-client.so
 
-# Audio firmware (Verizon)
-blobs/vzw/etc/firmware/q6.b00
-blobs/vzw/etc/firmware/q6.b01
-blobs/vzw/etc/firmware/q6.b03
-blobs/vzw/etc/firmware/q6.b04
-blobs/vzw/etc/firmware/q6.b05
-blobs/vzw/etc/firmware/q6.b06
-blobs/vzw/etc/firmware/q6.mdt
-
 # Camera
 bin/mm-qcamera-daemon
 cameradata/datapattern_420sp.yuv
@@ -91,13 +82,6 @@ lib/liboemcamera.so
 lib/libsecnativefeature.so
 lib/libvdis.so
 
-# Camera firmware
-cameradata/M10MO_SFW.bin
-cameradata/RS_M10MO_OL.bin
-cameradata/RS_M10MO_OS.bin
-cameradata/RS_M10MO_SL.bin
-cameradata/RS_M10MO_SS.bin
-
 # GPU
 vendor/lib/egl/eglsubAndroid.so
 vendor/lib/egl/libEGL_adreno.so
@@ -140,6 +124,7 @@ etc/sec_config
 # Media
 bin/qseecomd
 lib/libDivxDrm.so
+lib/libdivxdrmdecrypt.so
 lib/libdrmdecrypt.so
 lib/libdrmfs.so
 lib/libdrmtime.so
@@ -179,10 +164,6 @@ bin/qcks
 bin/qmuxd
 bin/rild
 bin/rmt_storage
-blobs/cdma/lib/libsec-ril.so
-blobs/cdma/lib/libril.so
-blobs/gsm/lib/libsec-ril.so
-blobs/gsm/lib/libril.so
 lib/libatparser.so
 lib/libfactoryutil.so
 lib/libomission_avoidance.so
@@ -190,7 +171,6 @@ lib/libreference-ril.so
 lib/libsecril-client.so
 lib/libdsutils.so
 lib/libnetmgr.so
-lib/libril.so
 lib/libril-qcril-hook-oem.so
 vendor/lib/libdiag.so
 

@@ -40,7 +40,7 @@ TARGET_CPU_VARIANT := krait
 TARGET_BOOTLOADER_BOARD_NAME := MSM8960
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 zcache msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 zcache msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x80200000
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -105,25 +105,15 @@ TARGET_PROVIDES_LIBLIGHT := true
 # Logging
 TARGET_USES_LOGD := false
 
-# MultiROM config. MultiROM also uses parts of TWRP config
-MR_INPUT_TYPE := type_b
-MR_INIT_DEVICES := device/samsung/jflte/multirom/mr_init_devices.c
-MR_DPI := xhdpi
-MR_DPI_FONT := 340
-MR_FSTAB := device/samsung/jflte/multirom/multirom.fstab
-MR_KEXEC_MEM_MIN := 0x85000000
-MR_USE_MROM_FSTAB := true
-MR_DEVICE_HOOKS := device/samsung/jflte/multirom/mr_hooks.c
-MR_DEVICE_HOOKS_VER := 1
-
 # NFC
 BOARD_NFC_HAL_SUFFIX := msm8960
 
 # Partitions
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
+TARGET_CUSTOM_SYSTEM_FORMAT := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x00A00000
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00A00000
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00A7DEA0
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1181114368
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 28651290624
 BOARD_FLASH_BLOCK_SIZE := 131072
@@ -138,7 +128,7 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_RECOVERY_SWIPE := true
-#TARGET_RECOVERY_FSTAB := device/samsung/jf-common/rootdir/etc/fstab.qcom
+# TARGET_RECOVERY_FSTAB := device/samsung/jf-common/rootdir/etc/fstab.qcom
 
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/jf-common/releasetools
@@ -168,10 +158,12 @@ BOARD_SEPOLICY_UNION += \
     mm-pp-daemon.te \
     mm-qcamerad.te \
     mpdecision.te \
+    netd.te \
     panel_dev.te \
     property_contexts \
     property.te \
     rild.te \
+    service_contexts \
     system_app.te \
     system_server.te \
     tee.te \
@@ -203,9 +195,9 @@ TW_CRYPTO_FS_FLAGS := "0x00000406"
 TW_CRYPTO_KEY_LOC := "footer"
 TW_BRIGHTNESS_PATH := /sys/devices/platform/msm_fb.526593/leds/lcd-backlight/brightness
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun0/file
-#TWRP_EVENT_LOGGING := true
-#TARGET_HW_DISK_ENCRYPTION := true
-    
+# TWRP_EVENT_LOGGING := true
+# TARGET_HW_DISK_ENCRYPTION := true
+
 # Vendor Init
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_jflte
@@ -228,3 +220,14 @@ WIFI_BAND := 802_11_ABG
 WIFI_DRIVER_FW_PATH_AP := "/system/etc/wifi/bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/dhd/parameters/firmware_path"
 WIFI_DRIVER_FW_PATH_STA := "/system/etc/wifi/bcmdhd_sta.bin"
+
+# MultiROM config. MultiROM also uses parts of TWRP config
+MR_INPUT_TYPE := type_b
+MR_INIT_DEVICES := device/samsung/jflte/multirom/mr_init_devices.c
+MR_DPI := xhdpi
+MR_DPI_FONT := 340
+MR_FSTAB := device/samsung/jflte/multirom/multirom.fstab
+MR_KEXEC_MEM_MIN := 0x85000000
+MR_USE_MROM_FSTAB := true
+MR_DEVICE_HOOKS := device/samsung/jflte/multirom/mr_hooks.c
+MR_DEVICE_HOOKS_VER := 1

@@ -1,0 +1,16 @@
+ro.cdma.home.operator.numeric=311480
+ro.cdma.home.operator.alpha=Verizon
+ro.gps.set_privacy=1
+ro.telephony.default_network=10
+ro.telephony.get_imsi_from_sim=true
+telephony.lteOnCdmaDevice=1
+
+# More RIL props
+persist.radio.snapshot_enabled=1
+persist.radio.snapshot_timer=22
+ro.config.multimode_cdma=1
+ro.config.combined_signal=true
+ro.gsm.data_retry_config=max_retries=infinite,5000,5000,60000,120000,480000,900000
+DEVICE_PROVISIONED=1
+persist.eons.enabled=false
+ro.telephony.default_cdma_sub=0
